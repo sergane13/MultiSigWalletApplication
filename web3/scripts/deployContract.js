@@ -6,7 +6,7 @@ async function main() {
   // Start deployment, returning a promise that resolves to a contract object
   const contract = await multiSigWallet.deploy(
     [
-      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "0xd6613bd2bb0E63609346B3dE0f43EF7df716C6D1",
       "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
     ],
     1
