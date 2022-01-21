@@ -1,7 +1,7 @@
 # MultiSigWallet
 
 Built with:
-*Hardhat
-*React
-*Bootstrap
+* Hardhat
+* React
+* Bootstrap
 
