@@ -1,13 +1,21 @@
-import { useState } from "react";
-import SetConnectionWithProvider from "./CreatingWebConnection.js";
+import { useState, useEffect } from "react";
+import { addressContract, contractAbi } from "./CreatingWebConnection.js";
 
 const ethers = require("ethers");
 const utils = require("ethers").utils;
 
 function FundContract(props) {
-  const [addressContract, setAddress] = useState("");
-  const [signer, setSigner] = useState([]);
+  const [balance, setBalance] = useState(0.0);
 
+  useEffect(() => {
+    GetBalance();
+  }, []);
+
+  async function GetBalance() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const balance = await provider.getBalance(addressContract);
+    setBalance(ethers.utils.formatEther(balance));
+  }
   async function SendEthContract() {
     if (window.ethereum) {
       try {
@@ -16,29 +24,29 @@ function FundContract(props) {
           value: utils.parseEther("4.0"),
           chainId: "31337",
         };
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
         const confirmationTx = await signer.sendTransaction(tx);
 
         if (confirmationTx) {
           alert("Contract Funded");
+          setBalance(balance + 4);
         }
       } catch (error) {
-        alert("Error");
+        alert("error");
       }
     }
   }
 
   return (
     <div class="container">
-      <SetConnectionWithProvider
-        setAddress={setAddress}
-        setSigner={setSigner}
-      />
       <div class="row my-2">
         <h5>Address</h5>
-        <h6>0x5FbDB2315678afecb367f032d93F642f64180aa3</h6>
+        <h6>{addressContract}</h6>
       </div>
       <div class="container my-5">
-        <div class="row my-2"> Eth stored: </div>
+        <div class="row my-2"> Eth stored: {balance} </div>
         <div class="row my-2"> Minimum Confirmations: 1</div>
         <div class="row my-2"> Total tx number: </div>
         <div class="row my-4">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { addressContract, contractAbi } from "./CreatingWebConnection.js";
 
 const ethers = require("ethers");
 const utils = require("ethers").utils;
@@ -14,16 +15,6 @@ function CreateTx(props) {
   function SetAmount(event) {
     setAmount(event.target.value);
   }
-
-  const contractAbi = [
-    "function getId() view returns(uint256)",
-    "function submit(address recipient, uint256 value, bytes calldata data)",
-    "function approve(uint txId)",
-    "function execute(uint txId)",
-    "function revokeApproval(uint txId)",
-  ];
-
-  const addressContract = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
   async function SubmitTransaction(event) {
     event.preventDefault();

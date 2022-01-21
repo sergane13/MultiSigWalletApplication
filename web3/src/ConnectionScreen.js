@@ -13,7 +13,6 @@ function ConnectionScreent(props) {
   function ConnectWithMetamask() {
     if (ethereum) {
       ethereum.request({ method: "eth_requestAccounts" }).then((result) => {
-        console.log(result[0]);
         props.setAccount(result[0]);
         props.setConfirmation(true);
 
@@ -21,7 +20,6 @@ function ConnectionScreent(props) {
       });
     } else {
       alert("No connection found");
-      console.log("No metamask");
     }
   }
 
