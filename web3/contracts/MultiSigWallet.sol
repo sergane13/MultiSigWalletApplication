@@ -28,9 +28,30 @@ contract MultiSigWallet is Modifiers{
         }
     }
 
-    function getId() external view returns(uint256)
+    function getBalance() external view returns(uint256)
     {
         return address(this).balance;
+    }
+
+    function getConfirmationNumber() external view returns(uint256)
+    {
+        return confirmationsRequired;
+    }
+
+    function getTxCount() external view returns(uint256)
+    {
+        return allTransactions.length;
+    }
+
+    function getLastTx() external view returns(address, uint256, bool, uint256)
+    {   
+        Transaction memory temp = allTransactions[allTransactions.length - 1];
+        return (
+        temp.recipient,
+        temp.value,
+        temp.executed,
+        temp.numberOfConfirmations
+        );
     }
    
     // default methods to receive tokens into contract

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 
 const ethers = require("ethers");
 const utils = require("ethers").utils;
@@ -6,7 +6,7 @@ const utils = require("ethers").utils;
 function ConnectionScreent(props) {
   const ethereum = window.ethereum;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     ConnectWithMetamask();
   }, []);
 

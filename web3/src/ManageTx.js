@@ -6,13 +6,15 @@ function ManageTx(props) {
       </div>
       <div class="card-body">
         <div>
-          <h5 class="form-label text-start">Address</h5>
+          <h5 class="form-label text-start">Address: {props.address}</h5>
         </div>
         <div class="my-4">
-          <h5 class="form-label text-start">Amount</h5>
+          <h5 class="form-label text-start">Amount: {props.amount}</h5>
         </div>
         <div class="my-4">
-          <h5 class="form-label text-start">Confirmations</h5>
+          <h5 class="form-label text-start">
+            Confirmations {props.confirmations}
+          </h5>
         </div>
         <div class="d-flex">
           <button class="btn btn-primary my-2"> Approve Tx</button>

@@ -48,7 +48,6 @@ function FundContract(props) {
       <div class="container my-5">
         <div class="row my-2"> Eth stored: {balance} </div>
         <div class="row my-2"> Minimum Confirmations: 1</div>
-        <div class="row my-2"> Total tx number: </div>
         <div class="row my-4">
           <button class="btn btn-success" onClick={SendEthContract}>
             Fund Contract +4 eth

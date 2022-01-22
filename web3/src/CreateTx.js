@@ -7,6 +7,7 @@ const utils = require("ethers").utils;
 function CreateTx(props) {
   const [address, setAddress] = useState("");
   const [amount, setAmount] = useState(0);
+  const [trigger, setTrigger] = useState(false);
 
   function SetAddress(event) {
     setAddress(event.target.value);
@@ -32,9 +33,13 @@ function CreateTx(props) {
     }
 
     try {
-      const submission = await contract.submit(address, amount, "0x00");
+      const submission = await contract.submit(
+        address,
+        amount * 10 ** 18,
+        "0x00"
+      );
       if (submission) {
-        //props.setNewTxSubmited();
+        setTrigger(true);
       }
     } catch (error) {
       console.log(error);
@@ -53,7 +58,7 @@ function CreateTx(props) {
             <input
               onChange={SetAddress}
               class="form-control w-75"
-              disabled={props.trigger}
+              disabled={trigger}
             ></input>
           </div>
           <div class="form-group my-4">
@@ -61,7 +66,7 @@ function CreateTx(props) {
             <input
               onChange={SetAmount}
               class="form-control w-50"
-              disabled={props.trigger}
+              disabled={trigger}
             ></input>
           </div>
           <div class="d-flex">

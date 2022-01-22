@@ -17,8 +17,8 @@ function App(props) {
     <div className="App">
       <NavBar balance={balance} address={account} />
       <div class="container-lg my-4">
-        <div class="row border">
-          <div class="col-md-4 border bg-dark text-light">
+        <div class="row">
+          <div class="col-md-4 bg-dark text-light">
             <h1 class="my-4">Contract</h1>
             <FundContract />
           </div>
