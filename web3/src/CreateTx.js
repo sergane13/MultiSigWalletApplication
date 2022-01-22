@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { addressContract, contractAbi } from "./CreatingWebConnection.js";
+import {
+  addressContract,
+  contractAbi,
+} from "./info-contract/ContractDetails.js";
 
 const ethers = require("ethers");
 const utils = require("ethers").utils;
@@ -7,7 +10,6 @@ const utils = require("ethers").utils;
 function CreateTx(props) {
   const [address, setAddress] = useState("");
   const [amount, setAmount] = useState(0);
-  const [trigger, setTrigger] = useState(false);
 
   function SetAddress(event) {
     setAddress(event.target.value);
@@ -35,14 +37,14 @@ function CreateTx(props) {
     try {
       const submission = await contract.submit(
         address,
-        amount * 10 ** 18,
+        utils.parseEther(amount),
         "0x00"
       );
       if (submission) {
-        setTrigger(true);
+        alert("Tx submited");
       }
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   }
 
@@ -58,7 +60,7 @@ function CreateTx(props) {
             <input
               onChange={SetAddress}
               class="form-control w-75"
-              disabled={trigger}
+              disabled={props.value}
             ></input>
           </div>
           <div class="form-group my-4">
@@ -66,7 +68,7 @@ function CreateTx(props) {
             <input
               onChange={SetAmount}
               class="form-control w-50"
-              disabled={trigger}
+              disabled={props.value}
             ></input>
           </div>
           <div class="d-flex">

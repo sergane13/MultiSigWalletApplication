@@ -13,6 +13,8 @@ function App(props) {
   const [balance, setBalance] = useState(0);
   const [confirmation, setConfirmation] = useState(false);
 
+  const [txSubmited, setTxSumbited] = useState(false);
+
   return confirmation ? (
     <div className="App">
       <NavBar balance={balance} address={account} />
@@ -24,8 +26,8 @@ function App(props) {
           </div>
           <div class="col my-2">
             <div class="container-sm">
-              <CreateTx trigger={false} />
-              <ManageTx />
+              <CreateTx trigger={false} value={txSubmited} />
+              <ManageTx setTxSumbited={setTxSumbited} />
             </div>
           </div>
         </div>

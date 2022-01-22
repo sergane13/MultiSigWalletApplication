@@ -45,6 +45,7 @@ contract MultiSigWallet is Modifiers{
 
     function getLastTx() external view returns(address, uint256, bool, uint256)
     {   
+        require(allTransactions.length > 0, "No tx so far");
         Transaction memory temp = allTransactions[allTransactions.length - 1];
         return (
         temp.recipient,
@@ -107,7 +108,7 @@ contract MultiSigWallet is Modifiers{
         txExists(txId) 
         returns(bool)
     {
-        Transaction memory _tx = allTransactions[txId];
+        Transaction storage _tx = allTransactions[txId];
 
         require(_tx.numberOfConfirmations >= confirmationsRequired, "Not enough confirmations");
     
