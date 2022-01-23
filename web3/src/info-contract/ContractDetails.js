@@ -6,6 +6,7 @@ export const contractAbi = [
   "function approve(uint txId)",
   "function execute(uint txId)",
   "function revokeApproval(uint txId)",
+  "function revokeTx(uint txId) returns(bool)",
   "function getLastTx() view returns(address, uint256, bool, uint256)",
   "function getTxCount() view returns(uint256)",
 ];

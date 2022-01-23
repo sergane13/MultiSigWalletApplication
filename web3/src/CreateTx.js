@@ -19,11 +19,17 @@ function CreateTx(props) {
     setAmount(event.target.value);
   }
 
-  async function SubmitTransaction(event) {
-    event.preventDefault();
+  function getContract() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(addressContract, contractAbi, signer);
+    return contract;
+  }
+
+  async function SubmitTransaction(event) {
+    event.preventDefault();
+
+    const contract = getContract();
 
     if (address.length < 1) {
       alert("Invalid Address");
@@ -42,6 +48,7 @@ function CreateTx(props) {
       );
       if (submission) {
         alert("Tx submited");
+        props.setTxSubmited(true);
       }
     } catch (error) {
       alert(error);
@@ -72,10 +79,14 @@ function CreateTx(props) {
             ></input>
           </div>
           <div class="d-flex">
-            <button type="submit" value="Submit" class="btn btn-primary my-2">
-              {" "}
-              Submit Tx
-            </button>
+            {!props.value ? (
+              <button type="submit" value="Submit" class="btn btn-primary my-2">
+                {" "}
+                Submit Tx
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </form>
       </div>

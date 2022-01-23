@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import NavBar from "./NavBar";
 import CreateTx from "./CreateTx";
 import ManageTx from "./ManageTx";
-import ConnectionScreent from "./ConnectionScreen";
+import ConnectionScreent from "./connection-screen/ConnectionScreen";
 import FundContract from "./FundContract";
 
 function App(props) {
@@ -13,7 +13,7 @@ function App(props) {
   const [balance, setBalance] = useState(0);
   const [confirmation, setConfirmation] = useState(false);
 
-  const [txSubmited, setTxSumbited] = useState(false);
+  const [txSubmited, setTxSubmited] = useState(false);
 
   return confirmation ? (
     <div className="App">
@@ -26,8 +26,8 @@ function App(props) {
           </div>
           <div class="col my-2">
             <div class="container-sm">
-              <CreateTx trigger={false} value={txSubmited} />
-              <ManageTx setTxSumbited={setTxSumbited} />
+              <CreateTx value={txSubmited} setTxSubmited={setTxSubmited} />
+              <ManageTx value={txSubmited} setTxSubmited={setTxSubmited} />
             </div>
           </div>
         </div>

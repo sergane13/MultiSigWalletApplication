@@ -153,10 +153,11 @@ contract MultiSigWallet is Modifiers{
         returns(bool)
     {
         require(txId == allTransactions.length - 1, "tx must be the last one");
+        require(allTransactions[allTransactions.length - 1].executed == false, "Tx already executed");
         require(msg.sender == initiator, "the initiator can revoke submision");
 
-        delete allTransactions[allTransactions.length - 1];
-
+        allTransactions.pop();
+        
         for(uint256 i = 0; i < owners.length; i++){
             transactionApprovals[txId][owners[i]] = false;
         }

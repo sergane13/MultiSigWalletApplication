@@ -14,7 +14,7 @@ function ManageTx(props) {
 
   useEffect(() => {
     GetContractDetailes();
-  }, []);
+  }, [props.value]);
 
   async function GetContractDetailes() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -27,9 +27,8 @@ function ManageTx(props) {
       setAddressSender(submitedTx[0]);
       setValue(ethers.utils.formatEther(submitedTx[1]));
       setConfirmations(submitedTx[3].toNumber());
-
-      props.setTxSumbited(!submitedTx[2]);
     }
+    props.setTxSubmited(true);
   }
 
   async function ApproveTx() {
@@ -38,9 +37,9 @@ function ManageTx(props) {
     const contract = new ethers.Contract(addressContract, contractAbi, signer);
 
     const getLastTxIndex = await contract.callStatic.getTxCount();
-    console.log(getLastTxIndex.toNumber());
     await contract.approve(getLastTxIndex.toNumber() - 1);
 
+    GetContractDetailes();
     alert("Tx aproved");
   }
 
@@ -50,12 +49,25 @@ function ManageTx(props) {
     const contract = new ethers.Contract(addressContract, contractAbi, signer);
 
     const getLastTxIndex = await contract.callStatic.getTxCount();
-    console.log(getLastTxIndex.toNumber());
     await contract.execute(getLastTxIndex.toNumber() - 1);
 
+    GetContractDetailes();
     alert("Tx executed");
   }
 
+  async function RevokeTx() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressContract, contractAbi, signer);
+
+    const getLastTxIndex = await contract.callStatic.getTxCount();
+    await contract.revokeTx(getLastTxIndex.toNumber() - 1);
+
+    GetContractDetailes();
+    alert("Tx Revoked");
+
+    props.setTxSubmited(false);
+  }
   return (
     <div class="card my-4">
       <div class="card-header">
@@ -86,7 +98,10 @@ function ManageTx(props) {
           ) : (
             ""
           )}
-          <button class="btn btn-danger my-2 mx-1"> Revoke Tx</button>
+          <button class="btn btn-danger my-2 mx-1" onClick={RevokeTx}>
+            {" "}
+            Revoke Tx
+          </button>
         </div>
       </div>
     </div>
