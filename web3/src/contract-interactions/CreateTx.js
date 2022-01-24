@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   addressContract,
   contractAbi,
-} from "./info-contract/ContractDetails.js";
+} from "../info-contract/ContractDetails.js";
 
 const ethers = require("ethers");
 const utils = require("ethers").utils;
@@ -26,6 +26,7 @@ function CreateTx(props) {
     return contract;
   }
 
+  //Submit tx
   async function SubmitTransaction(event) {
     event.preventDefault();
 

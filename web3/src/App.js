@@ -1,11 +1,11 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import NavBar from "./NavBar";
-import CreateTx from "./CreateTx";
-import ManageTx from "./ManageTx";
-import ConnectionScreent from "./connection-screen/ConnectionScreen";
-import FundContract from "./FundContract";
+import NavBar from "./nav-bar/NavBar";
+import CreateTx from "./contract-interactions/CreateTx";
+import ManageTx from "./contract-interactions/ManageTx";
+import ConnectionScreen from "./connection-screen/ConnectionScreen";
+import FundContract from "./contract-interactions/FundContract";
 
 function App(props) {
   // details about the account
@@ -22,7 +22,7 @@ function App(props) {
         <div class="row">
           <div class="col-md-4 bg-dark text-light">
             <h1 class="my-4">Contract</h1>
-            <FundContract />
+            <FundContract setBalance={setBalance} />
           </div>
           <div class="col my-2">
             <div class="container-sm">
@@ -36,7 +36,7 @@ function App(props) {
   ) : (
     <div className="App">
       <NavBar balance="0" address="0x0" />
-      <ConnectionScreent
+      <ConnectionScreen
         setAccount={setAccount}
         setConfirmation={setConfirmation}
         setBalance={setBalance}

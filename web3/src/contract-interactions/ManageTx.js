@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import {
   addressContract,
   contractAbi,
-} from "./info-contract/ContractDetails.js";
+} from "../info-contract/ContractDetails.js";
 
 const ethers = require("ethers");
-const utils = require("ethers").utils;
 
 function ManageTx(props) {
   const [addressSender, setAddressSender] = useState("0x00");
@@ -13,61 +12,81 @@ function ManageTx(props) {
   const [numberOfConfirmations, setConfirmations] = useState(0);
 
   useEffect(() => {
-    GetContractDetailes();
+    GetContractDetails();
   }, [props.value]);
 
-  async function GetContractDetailes() {
+  // Get contract
+  function getContract() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(addressContract, contractAbi, signer);
 
+    return contract;
+  }
+
+  // Get informations about the deployed contract
+  async function GetContractDetails() {
+    const contract = getContract();
     const submitedTx = await contract.callStatic.getLastTx();
 
-    if (submitedTx && !submitedTx[2]) {
+    if (!submitedTx[2]) {
       setAddressSender(submitedTx[0]);
       setValue(ethers.utils.formatEther(submitedTx[1]));
       setConfirmations(submitedTx[3].toNumber());
     }
-    props.setTxSubmited(true);
+    props.setTxSubmited(!submitedTx[2]);
   }
 
+  // Approve transaction
   async function ApproveTx() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(addressContract, contractAbi, signer);
-
+    const contract = getContract();
     const getLastTxIndex = await contract.callStatic.getTxCount();
-    await contract.approve(getLastTxIndex.toNumber() - 1);
+    const temp = await contract.approve(getLastTxIndex.toNumber() - 1);
 
-    GetContractDetailes();
-    alert("Tx aproved");
+    if (temp) {
+      GetContractDetails();
+      alert("Tx aproved");
+    }
   }
 
+  // Execute tansaction
   async function ExecuteTx() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(addressContract, contractAbi, signer);
-
+    const contract = getContract();
     const getLastTxIndex = await contract.callStatic.getTxCount();
-    await contract.execute(getLastTxIndex.toNumber() - 1);
+    const temp = await contract.execute(getLastTxIndex.toNumber() - 1);
 
-    GetContractDetailes();
-    alert("Tx executed");
+    if (temp) {
+      GetContractDetails();
+      alert("Tx executed");
+    }
   }
 
+  // Revoke submited transaction
   async function RevokeTx() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(addressContract, contractAbi, signer);
-
+    const contract = getContract();
     const getLastTxIndex = await contract.callStatic.getTxCount();
-    await contract.revokeTx(getLastTxIndex.toNumber() - 1);
+    const temp = await contract.revokeTx(getLastTxIndex.toNumber() - 1);
 
-    GetContractDetailes();
-    alert("Tx Revoked");
+    if (temp) {
+      GetContractDetails();
+      alert("Tx Revoked");
+    }
 
     props.setTxSubmited(false);
   }
+
+  // Revoke approval
+  async function RevokeApproval() {
+    const contract = getContract();
+    const getLastTxIndex = await contract.callStatic.getTxCount();
+    const temp = await contract.revokeApproval(getLastTxIndex.toNumber() - 1);
+
+    if (temp) {
+      GetContractDetails();
+      alert("Approval Revoked");
+    }
+  }
+
   return (
     <div class="card my-4">
       <div class="card-header">

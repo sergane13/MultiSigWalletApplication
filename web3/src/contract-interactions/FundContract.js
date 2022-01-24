@@ -1,8 +1,9 @@
+import { parse } from "@ethersproject/transactions";
 import { useState, useEffect } from "react";
 import {
   addressContract,
   contractAbi,
-} from "./info-contract/ContractDetails.js";
+} from "../info-contract/ContractDetails.js";
 
 const ethers = require("ethers");
 const utils = require("ethers").utils;
@@ -26,6 +27,7 @@ function FundContract(props) {
     setTxCount(nrTx.toNumber());
     setBalance(ethers.utils.formatEther(balance));
   }
+
   async function SendEthContract() {
     if (window.ethereum) {
       try {
@@ -44,7 +46,7 @@ function FundContract(props) {
           GetBalance();
         }
       } catch (error) {
-        alert("error");
+        alert(error);
       }
     }
   }
