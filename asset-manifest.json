@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/MultiSigWalletApplication/static/css/main.42ad72ca.css",
-    "main.js": "/MultiSigWalletApplication/static/js/main.e9e1e8c0.js",
-    "index.html": "/MultiSigWalletApplication/index.html",
-    "main.42ad72ca.css.map": "/MultiSigWalletApplication/static/css/main.42ad72ca.css.map",
-    "main.e9e1e8c0.js.map": "/MultiSigWalletApplication/static/js/main.e9e1e8c0.js.map"
+    "main.css": "/MultiSigWalletApplication/index.html/static/css/main.42ad72ca.css",
+    "main.js": "/MultiSigWalletApplication/index.html/static/js/main.e9e1e8c0.js",
+    "index.html": "/MultiSigWalletApplication/index.html/index.html",
+    "main.42ad72ca.css.map": "/MultiSigWalletApplication/index.html/static/css/main.42ad72ca.css.map",
+    "main.e9e1e8c0.js.map": "/MultiSigWalletApplication/index.html/static/js/main.e9e1e8c0.js.map"
   },
   "entrypoints": [
     "static/css/main.42ad72ca.css",
