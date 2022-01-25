@@ -1,0 +1,113 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/home/serban/MultiSigWalletApplication/web3/contracts/Modifiers.sol": {
+      "lastModificationDate": 1642697755685,
+      "contentHash": "8a9e2bcb420dd7e9f0bfdce135676c7e",
+      "sourceName": "contracts/Modifiers.sol",
+      "solcConfig": {
+        "version": "0.8.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.11"
+      ],
+      "artifacts": [
+        "Modifiers"
+      ]
+    },
+    "/home/serban/MultiSigWalletApplication/web3/contracts/MultiSigWallet.sol": {
+      "lastModificationDate": 1643102081706,
+      "contentHash": "b759cb4c054319fe05461dbded5f444b",
+      "sourceName": "contracts/MultiSigWallet.sol",
+      "solcConfig": {
+        "version": "0.8.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Modifiers.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "0.8.11"
+      ],
+      "artifacts": [
+        "MultiSigWallet"
+      ]
+    },
+    "/home/serban/MultiSigWalletApplication/web3/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1642697337830,
+      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    }
+  }
+}
