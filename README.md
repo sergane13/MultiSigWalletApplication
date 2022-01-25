@@ -40,7 +40,7 @@
 # About The Project
 <br/>
 
-<img src="images/1.png" alt="Logo" width="1400">
+<img src="images/img.png" alt="Logo" width="1400">
 
 <br>
 
