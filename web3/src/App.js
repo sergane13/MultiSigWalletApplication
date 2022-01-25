@@ -21,7 +21,7 @@ function App(props) {
       <div class="container-lg my-4">
         <div class="row">
           <div class="col-md-4 bg-dark text-light">
-            <h1 class="my-4">Contract</h1>
+            <h1 class="my-4 font-link">Contract</h1>
             <FundContract setBalance={setBalance} />
           </div>
           <div class="col my-2">

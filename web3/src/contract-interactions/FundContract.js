@@ -18,16 +18,17 @@ function FundContract(props) {
 
   async function GetBalance() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const balance = await provider.getBalance(addressContract);
+    const balanceContract = await provider.getBalance(addressContract);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(addressContract, contractAbi, signer);
 
     const nrTx = await contract.callStatic.getTxCount();
 
     setTxCount(nrTx.toNumber());
-    setBalance(ethers.utils.formatEther(balance));
+    setBalance(ethers.utils.formatEther(balanceContract));
   }
 
+  // fund contract with +4 eth
   async function SendEthContract() {
     if (window.ethereum) {
       try {
@@ -39,12 +40,10 @@ function FundContract(props) {
 
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        const confirmationTx = await signer.sendTransaction(tx);
-
-        if (confirmationTx) {
+        await signer.sendTransaction(tx).then(() => {
           alert("Contract Funded");
           GetBalance();
-        }
+        });
       } catch (error) {
         alert(error);
       }
@@ -52,7 +51,7 @@ function FundContract(props) {
   }
 
   return (
-    <div class="container">
+    <div class="container font-link">
       <div class="row my-2">
         <h5>Address</h5>
         <h6>{addressContract}</h6>

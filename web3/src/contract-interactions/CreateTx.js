@@ -57,7 +57,7 @@ function CreateTx(props) {
   }
 
   return (
-    <div class="card my-4">
+    <div class="card my-4 font-link">
       <div class="card-header">
         <h4 class="text-dark">Create Tx</h4>
       </div>

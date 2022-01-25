@@ -5,6 +5,7 @@ export const contractAbi = [
   "function submit(address recipient, uint256 value, bytes calldata data)",
   "function approve(uint txId)",
   "function execute(uint txId)",
+  "function getUserApproval(uint256 txId, address adrs) view returns(bool)",
   "function revokeApproval(uint txId)",
   "function revokeTx(uint txId) returns(bool)",
   "function getLastTx() view returns(address, uint256, bool, uint256)",

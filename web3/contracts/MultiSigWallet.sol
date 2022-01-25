@@ -54,8 +54,13 @@ contract MultiSigWallet is Modifiers{
         temp.numberOfConfirmations
         );
     }
+
+    function getUserApproval(uint256 txId, address adrs) external view returns(bool)
+    {
+        return transactionApprovals[txId][adrs];
+    }
    
-    // default methods to receive tokens into contract
+    //default methods to receive tokens into contract
     fallback() external payable{}
     receive() external payable{}
 
@@ -131,7 +136,7 @@ contract MultiSigWallet is Modifiers{
         txExists(txId) 
         returns(bool)
     {
-        Transaction memory _tx = allTransactions[txId];
+        Transaction storage _tx = allTransactions[txId];
 
         require(transactionApprovals[txId][msg.sender] == true, "tx not approved");
 

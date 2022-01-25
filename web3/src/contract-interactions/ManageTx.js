@@ -10,9 +10,12 @@ function ManageTx(props) {
   const [addressSender, setAddressSender] = useState("0x00");
   const [value, setValue] = useState(0);
   const [numberOfConfirmations, setConfirmations] = useState(0);
+  const [approval, setApproval] = useState(false);
 
   useEffect(() => {
-    GetContractDetails();
+    setTimeout(() => {
+      GetContractDetails();
+    }, 1000);
   }, [props.value]);
 
   // Get contract
@@ -35,6 +38,19 @@ function ManageTx(props) {
       setConfirmations(submitedTx[3].toNumber());
     }
     props.setTxSubmited(!submitedTx[2]);
+
+    const walletAddress = window.ethereum.selectedAddress;
+
+    const getLastTxIndex = await contract.callStatic.getTxCount();
+    const getApprovals = await contract.callStatic.getUserApproval(
+      getLastTxIndex.toNumber() - 1,
+      walletAddress
+    );
+
+    if (getApprovals) {
+      setApproval(getApprovals);
+      console.log(approval);
+    }
   }
 
   // Approve transaction
@@ -88,7 +104,7 @@ function ManageTx(props) {
   }
 
   return (
-    <div class="card my-4">
+    <div class="card my-4 font-link">
       <div class="card-header">
         <h4 class="text-dark">Manage Tx</h4>
       </div>
@@ -105,10 +121,18 @@ function ManageTx(props) {
           </h5>
         </div>
         <div class="d-flex">
-          <button class="btn btn-primary my-2" onClick={ApproveTx}>
-            {" "}
-            Approve Tx
-          </button>
+          {approval === false ? (
+            <button class="btn btn-primary my-2" onClick={ApproveTx}>
+              {" "}
+              Approve Tx
+            </button>
+          ) : (
+            <button class="btn btn-danger my-2" onClick={RevokeApproval}>
+              {" "}
+              Revoke Approval
+            </button>
+          )}
+
           {numberOfConfirmations > 0 ? (
             <button class="btn btn-success my-2 mx-3" onClick={ExecuteTx}>
               {" "}

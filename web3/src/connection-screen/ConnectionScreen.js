@@ -1,6 +1,8 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import React from "react";
 
+const ethers = require("ethers");
+
 class ConnectionScreent extends React.Component {
   ethereum = window.ethereum;
   state = { pass: false };
@@ -8,11 +10,12 @@ class ConnectionScreent extends React.Component {
   constructor(props) {
     super(props);
     this.ConnectWithMetamask = this.ConnectWithMetamask.bind(this);
+    this.MetamaskAccountConnection = this.MetamaskAccountConnection.bind(this);
   }
 
   componentDidMount() {
     if (this.ethereum) {
-      this.ConnectWithMetamask();
+      this.MetamaskAccountConnection();
     } else {
       alert("No connection found");
       this.setState({ pass: true });
@@ -20,6 +23,24 @@ class ConnectionScreent extends React.Component {
     }
   }
 
+  // Check if any acount is connected to metamask
+  async MetamaskAccountConnection() {
+    var provider = new ethers.providers.Web3Provider(this.ethereum);
+    const isMetaMaskConnected = async () => {
+      const accounts = await provider.listAccounts();
+      return accounts.length > 0;
+    };
+    await isMetaMaskConnected().then((connected) => {
+      if (connected) {
+        this.ConnectWithMetamask();
+      } else {
+        this.setState({ pass: true });
+        this.render();
+      }
+    });
+  }
+
+  // Connect with metamask if no account was detected
   ConnectWithMetamask() {
     this.ethereum
       .request({ method: "eth_requestAccounts" })
@@ -34,6 +55,7 @@ class ConnectionScreent extends React.Component {
       });
   }
 
+  // Get balance of account
   GetBalanceUser(address) {
     this.ethereum
       .request({ method: "eth_getBalance", params: [address, "latest"] })
