@@ -36,21 +36,20 @@ function ManageTx(props) {
       setAddressSender(submitedTx[0]);
       setValue(ethers.utils.formatEther(submitedTx[1]));
       setConfirmations(submitedTx[3].toNumber());
+
+      const walletAddress = window.ethereum.selectedAddress;
+
+      const getLastTxIndex = await contract.callStatic.getTxCount();
+      const getApprovals = await contract.callStatic.getUserApproval(
+        getLastTxIndex.toNumber() - 1,
+        walletAddress
+      );
+
+      if (getApprovals) {
+        setApproval(getApprovals);
+      }
     }
     props.setTxSubmited(!submitedTx[2]);
-
-    const walletAddress = window.ethereum.selectedAddress;
-
-    const getLastTxIndex = await contract.callStatic.getTxCount();
-    const getApprovals = await contract.callStatic.getUserApproval(
-      getLastTxIndex.toNumber() - 1,
-      walletAddress
-    );
-
-    if (getApprovals) {
-      setApproval(getApprovals);
-      console.log(approval);
-    }
   }
 
   // Approve transaction
@@ -133,7 +132,7 @@ function ManageTx(props) {
             </button>
           )}
 
-          {numberOfConfirmations > 0 ? (
+          {numberOfConfirmations > 1 ? (
             <button class="btn btn-success my-2 mx-3" onClick={ExecuteTx}>
               {" "}
               Execute Tx{" "}

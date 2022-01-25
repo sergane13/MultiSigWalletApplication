@@ -34,7 +34,7 @@ function FundContract(props) {
       try {
         const tx = {
           to: addressContract,
-          value: utils.parseEther("4.0"),
+          value: utils.parseEther("0.05"),
           chainId: "31337",
         };
 

@@ -36,8 +36,8 @@ function CreateTx(props) {
       alert("Invalid Address");
       return;
     }
-    if (amount < 1) {
-      alert("Amount must be positive");
+    if (amount < 0.01) {
+      alert("Amount must be > 0.01 eth");
       return;
     }
 

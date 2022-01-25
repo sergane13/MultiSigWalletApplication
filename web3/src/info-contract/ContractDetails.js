@@ -1,4 +1,5 @@
-export const addressContract = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+//export const addressContract = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; //localhost
+export const addressContract = "0x3363504Fe39A0cedD211547BE70898De5041fEc5"; //rinkeby
 
 export const contractAbi = [
   "function getBalance() view returns(uint256)",

@@ -21,6 +21,10 @@ class ConnectionScreent extends React.Component {
       this.setState({ pass: true });
       this.render();
     }
+
+    window.ethereum.on("accountsChanged", () => {
+      this.MetamaskAccountConnection();
+    });
   }
 
   // Check if any acount is connected to metamask
